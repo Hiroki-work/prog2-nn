@@ -14,7 +14,7 @@ class MyModel(nn.Module):
             nn.ReLU(),
             nn.Linear(512, 10),
         )
-    
+
     def forward(self, x):
         x = self.flatten(x)
         logits = self.network(x)
@@ -28,7 +28,7 @@ def test_accuracy(model, dataloader):
     for image_batch, label_batch in dataloader:
         with torch.no_grad():
             logits_batch = model(image_batch)
-        
+
         predict_batch =logits_batch.argmax(dim=1)
         n_corrects += (label_batch == predict_batch).sum().item()
 
@@ -46,7 +46,7 @@ def train(model, dataloader, loss_fn, optimizer):
 
         # 損失 (誤差) を計算
         loss = loss_fn(logits_batch, label_batch)
-        
+   
         # 最適化
         optimizer.zero_grad()
         loss.backward()   # 誤差逆伝播法 (back propagation)
